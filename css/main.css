@@ -97,7 +97,20 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+body {
+    background: black;
+    overflow: hidden;
+}
 
+#albumList {
+    white-space: nowrap;
+}
+
+#albumList > li {
+    display: inline-block;
+    -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom,
+            from(transparent),  to(rgba(255,255,255,0.4)));
+}
 
 
 
