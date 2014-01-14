@@ -4,5 +4,7 @@ requirejs.config({
  
 require (['container'], function(container) {
     var containerElement = document.getElementById('container');
-    containerElement.innerHTML = container.create().outerHTML;
+    if(containerElement) {
+        containerElement.innerHTML = container.create().outerHTML;
+    }
 });
