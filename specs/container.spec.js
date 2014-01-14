@@ -1,4 +1,4 @@
-define(['js/container'], function(container) {
+define(['container'], function(container) {
     describe("Container module", function () {
         describe("created container", function() {
             var containerUnderTest;

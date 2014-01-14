@@ -1,4 +1,4 @@
-define(['js/main'], function(main) {
+define(['main'], function(main) {
     describe("Main module", function () {
         it("", function() {
         });
