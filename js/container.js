@@ -15,6 +15,15 @@ define(function() {
                 setDummyItemContent(item, i+1);
                 result.appendChild(item);
             }
+            
+            result.moveNext = function () {
+                var firstChild = this.children[0];
+                this.removeChild(firstChild);
+                this.appendChild(firstChild);
+                
+                // TODO: update the content of firstChild
+            };
+            
             return result;
         }
     };
