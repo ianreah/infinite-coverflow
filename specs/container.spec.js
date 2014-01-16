@@ -31,6 +31,11 @@ define(['container'], function(container) {
                
                containerUnderTest.moveNext();
                
+               // Simulate a transition end event
+               var transitionEndEvent = document.createEvent('CustomEvent');
+               transitionEndEvent.initCustomEvent('webkitTransitionEnd');
+               containerUnderTest.dispatchEvent(transitionEndEvent);
+
                for (var i = 0; i != containerUnderTest.children.length-1; ++i) {
                    expect(containerUnderTest.children[i].innerHTML).toBe(currentItems[i+1]);
                }

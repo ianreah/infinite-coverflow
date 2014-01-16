@@ -10,6 +10,17 @@ define(function() {
             var result = document.createElement('ul');
             result.id = 'albumList';
             
+            result.addEventListener('webkitTransitionEnd', function(event) {
+                this.className = '';
+                this.style.webkitTransform = '';
+                
+                var firstChild = this.children[0];
+                this.removeChild(firstChild);
+                this.appendChild(firstChild);
+                
+                // TODO: update the content of firstChild
+            }, false );
+            
             for (var i = 0; i < itemCount; i++) {
                 var item = document.createElement('li');
                 setDummyItemContent(item, i+1);
@@ -17,11 +28,8 @@ define(function() {
             }
             
             result.moveNext = function () {
-                var firstChild = this.children[0];
-                this.removeChild(firstChild);
-                this.appendChild(firstChild);
-                
-                // TODO: update the content of firstChild
+                this.className = 'animated';
+                this.style.webkitTransform = 'translateX(-100px)';
             };
             
             return result;

@@ -112,7 +112,9 @@ body {
             from(transparent),  to(rgba(255,255,255,0.4)));
 }
 
-
+.animated {
+    -webkit-transition: all 0.5s;
+}
 
 
 
