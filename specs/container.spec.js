@@ -5,6 +5,12 @@ define(['container'], function(container) {
         beforeEach(function(){
             containerUnderTest = container.create();
         });
+        
+        function simulateTransitionEnd() {
+            var transitionEndEvent = document.createEvent('CustomEvent');
+            transitionEndEvent.initCustomEvent('webkitTransitionEnd');
+            containerUnderTest.dispatchEvent(transitionEndEvent);
+        }
             
         describe("created container", function() {
             it("is an unordered list", function() {
@@ -21,6 +27,16 @@ define(['container'], function(container) {
             it("has an id of albumList", function() {
                 expect(containerUnderTest.id).toBe("albumList");
             });
+            
+            it("marks central item as current", function() {
+               for(var i = 0; i != containerUnderTest.children.length; ++i) {
+                   if(i==4) {
+                       expect(containerUnderTest.children[i].className).toBe("current");
+                   } else {
+                       expect(containerUnderTest.children[i].className).not.toBe("current");
+                   }
+               }
+            });
         });
         
         describe("moveNext", function() {
@@ -30,14 +46,23 @@ define(['container'], function(container) {
                });
                
                containerUnderTest.moveNext();
-               
-               // Simulate a transition end event
-               var transitionEndEvent = document.createEvent('CustomEvent');
-               transitionEndEvent.initCustomEvent('webkitTransitionEnd');
-               containerUnderTest.dispatchEvent(transitionEndEvent);
+               simulateTransitionEnd();
 
                for (var i = 0; i != containerUnderTest.children.length-1; ++i) {
                    expect(containerUnderTest.children[i].innerHTML).toBe(currentItems[i+1]);
+               }
+           });
+           
+           it("still marks central item as current", function() {
+               containerUnderTest.moveNext();
+               simulateTransitionEnd();
+
+               for(var i = 0; i != containerUnderTest.children.length; ++i) {
+                   if(i==4) {
+                       expect(containerUnderTest.children[i].className).toBe("current");
+                   } else {
+                       expect(containerUnderTest.children[i].className).not.toBe("current");
+                   }
                }
            });
         });

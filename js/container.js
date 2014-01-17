@@ -1,5 +1,6 @@
 define(function() {
     var itemCount = 9;
+    var centralItem = Math.floor(itemCount / 2);
     
     function setDummyItemContent(item, name) {
         item.innerHTML = "<img src='http://placehold.it/100x100&text=" + name + "'/>";
@@ -11,11 +12,15 @@ define(function() {
             result.id = 'albumList';
             
             result.addEventListener('webkitTransitionEnd', function(event) {
-                this.className = '';
+                if(event.target != result) {
+                    return;
+                }
+                
+                result.className = '';
 
-                var firstChild = this.children[0];
-                this.removeChild(firstChild);
-                this.appendChild(firstChild);
+                var firstChild = result.children[0];
+                result.removeChild(firstChild);
+                result.appendChild(firstChild);
                 
                 // TODO: update the content of firstChild
             }, false );
@@ -26,8 +31,12 @@ define(function() {
                 result.appendChild(item);
             }
             
+            result.children[centralItem].className = 'current';
+            
             result.moveNext = function () {
                 this.className = 'slide-left';
+                this.children[centralItem].className = '';
+                this.children[centralItem+1].className = 'current';
             };
             
             return result;

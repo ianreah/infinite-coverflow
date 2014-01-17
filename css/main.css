@@ -108,12 +108,22 @@ body {
 
 #albumList > li {
     display: inline-block;
+    -webkit-transition: -webkit-transform 0.5s;
+    -webkit-transform: scale(0.5);
+}
+
+#albumList > li > img {
     -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom,
             from(transparent),  to(rgba(255,255,255,0.4)));
+    
+}
+
+#albumList > li.current {
+    -webkit-transform: scale(1);
 }
 
 .slide-left {
-    -webkit-transition: all 0.5s;
+    -webkit-transition: -webkit-transform 0.5s;
     -webkit-transform: translateX(-100px);
 }
 
