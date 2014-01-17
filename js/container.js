@@ -12,8 +12,7 @@ define(function() {
             
             result.addEventListener('webkitTransitionEnd', function(event) {
                 this.className = '';
-                this.style.webkitTransform = '';
-                
+
                 var firstChild = this.children[0];
                 this.removeChild(firstChild);
                 this.appendChild(firstChild);
@@ -28,8 +27,7 @@ define(function() {
             }
             
             result.moveNext = function () {
-                this.className = 'animated';
-                this.style.webkitTransform = 'translateX(-100px)';
+                this.className = 'slide-left';
             };
             
             return result;

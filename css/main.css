@@ -112,8 +112,9 @@ body {
             from(transparent),  to(rgba(255,255,255,0.4)));
 }
 
-.animated {
+.slide-left {
     -webkit-transition: all 0.5s;
+    -webkit-transform: translateX(-100px);
 }
 
 
