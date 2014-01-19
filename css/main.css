@@ -108,7 +108,8 @@ body {
 
 #albumList > li {
     display: inline-block;
-    -webkit-transition: -webkit-transform 0.5s;
+    opacity: 0.5;
+    -webkit-transition: all 0.5s;
     -webkit-transform: scale(0.5);
 }
 
@@ -119,7 +120,12 @@ body {
 }
 
 #albumList > li.current {
+    opacity: 1;
     -webkit-transform: scale(1);
+}
+
+#albumList > li:first-child, #albumList > li:last-child {
+    opacity: 0;
 }
 
 .slide-left {
@@ -127,6 +133,13 @@ body {
     -webkit-transform: translateX(-100px);
 }
 
+#albumList > li.fade-out {
+    opacity: 0;
+}
+
+#albumList > li.fade-in {
+    opacity: 0.5;
+}
 
 
 

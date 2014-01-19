@@ -33,7 +33,7 @@ define(['container'], function(container) {
                    if(i==4) {
                        expect(containerUnderTest.children[i].className).toBe("current");
                    } else {
-                       expect(containerUnderTest.children[i].className).not.toBe("current");
+                       expect(containerUnderTest.children[i].className).toBe("");
                    }
                }
             });
@@ -61,7 +61,7 @@ define(['container'], function(container) {
                    if(i==4) {
                        expect(containerUnderTest.children[i].className).toBe("current");
                    } else {
-                       expect(containerUnderTest.children[i].className).not.toBe("current");
+                       expect(containerUnderTest.children[i].className).toBe("");
                    }
                }
            });

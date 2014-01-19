@@ -22,6 +22,9 @@ define(function() {
                 result.removeChild(firstChild);
                 result.appendChild(firstChild);
                 
+                result.children[0].className = '';
+                result.children[itemCount-2].className = '';
+                
                 // TODO: update the content of firstChild
             }, false );
             
@@ -35,6 +38,10 @@ define(function() {
             
             result.moveNext = function () {
                 this.className = 'slide-left';
+                
+                this.children[1].className = 'fade-out';
+                this.children[itemCount-1].className = 'fade-in';
+                
                 this.children[centralItem].className = '';
                 this.children[centralItem+1].className = 'current';
             };
