@@ -40,8 +40,8 @@ define(['container'], function(container) {
         });
         
         describe("moveNext", function() {
-           it("moves all current items one to the left", function() {
-               var currentItems = Array.prototype.map.call(containerUnderTest.children, function (item) {
+           it("moves all items one to the left", function() {
+               var itemContent = Array.prototype.map.call(containerUnderTest.children, function (item) {
                    return item.innerHTML;
                });
                
@@ -49,7 +49,7 @@ define(['container'], function(container) {
                simulateTransitionEnd();
 
                for (var i = 0; i != containerUnderTest.children.length-1; ++i) {
-                   expect(containerUnderTest.children[i].innerHTML).toBe(currentItems[i+1]);
+                   expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i+1]);
                }
            });
            
