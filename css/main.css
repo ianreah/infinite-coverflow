@@ -133,6 +133,11 @@ body {
     -webkit-transform: translateX(-100px);
 }
 
+.slide-right {
+    -webkit-transition: -webkit-transform 0.5s;
+    -webkit-transform: translateX(100px);
+}
+
 #albumList > li.fade-out {
     opacity: 0;
 }

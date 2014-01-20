@@ -66,5 +66,33 @@ define(['container'], function(container) {
                }
            });
         });
+        
+        describe("movePrevious", function() {
+           it("moves all items one to the right", function() {
+               var itemContent = Array.prototype.map.call(containerUnderTest.children, function (item) {
+                   return item.innerHTML;
+               });
+               
+               containerUnderTest.movePrevious();
+               simulateTransitionEnd();
+
+               for (var i = 1; i != containerUnderTest.children.length; ++i) {
+                   expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i-1]);
+               }
+           });
+           
+           it("still marks central item as current", function() {
+               containerUnderTest.movePrevious();
+               simulateTransitionEnd();
+
+               for(var i = 0; i != containerUnderTest.children.length; ++i) {
+                   if(i==4) {
+                       expect(containerUnderTest.children[i].className).toBe("current");
+                   } else {
+                       expect(containerUnderTest.children[i].className).toBe("");
+                   }
+               }
+           });
+        });
     });
 });

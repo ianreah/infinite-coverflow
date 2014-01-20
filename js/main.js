@@ -17,9 +17,9 @@ require (['container'], function(containerCreator) {
                 container.moveNext();
                 break;
             
-            /*case 37: // Left Arrow
+            case 37: // Left Arrow
                 container.movePrevious();
-                break;*/
+                break;
         }
     };
 });
