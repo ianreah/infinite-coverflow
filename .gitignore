@@ -1,2 +1,6 @@
-bower_components
+bower_components/*
+!bower_components/requirejs
+bower_components/requirejs/*
+!bower_components/requirejs/require.js
+
 node_modules
