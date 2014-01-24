@@ -4,12 +4,13 @@ define(['container'], function(container) {
         
         beforeEach(function(){
             containerUnderTest = container.create();
+            document.body.appendChild(containerUnderTest);
         });
         
-        function simulateTransitionEnd() {
+        function simulateTransitionEnd(elementToFireOn) {
             var transitionEndEvent = document.createEvent('CustomEvent');
-            transitionEndEvent.initCustomEvent('webkitTransitionEnd');
-            containerUnderTest.dispatchEvent(transitionEndEvent);
+            transitionEndEvent.initCustomEvent('webkitTransitionEnd', true, true);
+            elementToFireOn.dispatchEvent(transitionEndEvent);
         }
             
         describe("created container", function() {
@@ -46,16 +47,31 @@ define(['container'], function(container) {
                });
                
                containerUnderTest.moveNext();
-               simulateTransitionEnd();
+               simulateTransitionEnd(containerUnderTest);
 
                for (var i = 0; i != containerUnderTest.children.length-1; ++i) {
                    expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i+1]);
                }
            });
            
+           it("ignores transition end from children", function() {
+               var itemContent = Array.prototype.map.call(containerUnderTest.children, function (item) {
+                   return item.innerHTML;
+               });
+               
+               containerUnderTest.moveNext();
+               for(var j = 0; j != containerUnderTest.children.length; ++j) {
+                   simulateTransitionEnd(containerUnderTest.children[j]);
+    
+                   for (var i = 0; i != containerUnderTest.children.length; ++i) {
+                       expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i]);
+                   }
+               }
+           });
+           
            it("still marks central item as current", function() {
                containerUnderTest.moveNext();
-               simulateTransitionEnd();
+               simulateTransitionEnd(containerUnderTest);
 
                for(var i = 0; i != containerUnderTest.children.length; ++i) {
                    if(i==4) {
@@ -74,16 +90,31 @@ define(['container'], function(container) {
                });
                
                containerUnderTest.movePrevious();
-               simulateTransitionEnd();
+               simulateTransitionEnd(containerUnderTest);
 
                for (var i = 1; i != containerUnderTest.children.length; ++i) {
                    expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i-1]);
                }
            });
            
+           it("ignores transition end from children", function() {
+               var itemContent = Array.prototype.map.call(containerUnderTest.children, function (item) {
+                   return item.innerHTML;
+               });
+               
+               containerUnderTest.movePrevious();
+               for(var j = 0; j != containerUnderTest.children.length; ++j) {
+                   simulateTransitionEnd(containerUnderTest.children[j]);
+    
+                   for (var i = 0; i != containerUnderTest.children.length; ++i) {
+                       expect(containerUnderTest.children[i].innerHTML).toBe(itemContent[i]);
+                   }
+               }
+           });
+           
            it("still marks central item as current", function() {
                containerUnderTest.movePrevious();
-               simulateTransitionEnd();
+               simulateTransitionEnd(containerUnderTest);
 
                for(var i = 0; i != containerUnderTest.children.length; ++i) {
                    if(i==4) {
