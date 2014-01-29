@@ -1,5 +1,7 @@
 requirejs.config({
-  paths: {}
+  paths: {
+    knockout: "../bower_components/knockout.js/knockout"
+  }
 });
  
 require (['container'], function(containerCreator) {
