@@ -5,10 +5,10 @@ requirejs.config({
   }
 });
  
-require (['knockout', 'containerViewModel', 'placeholderItemFactory'], function(ko, ContainerViewModel, ItemFactory) {
+require(['knockout', 'containerViewModel', 'placeholderItemFactory', 'requirejs-domready!'], function (ko, ContainerViewModel, ItemFactory, dom) {
     ko.applyBindings(new ContainerViewModel(new ItemFactory(100)));
 
-    /*document.onkeydown = function(event) {
+    /*dom.onkeydown = function(event) {
         switch(event.keyCode)
         {
             case 39: // Right Arrow
