@@ -22,7 +22,9 @@
         <![endif]-->
 
         <ul id="albumList" data-bind="foreach: items">
-          <li><img data-bind="attr: {src: imageSource}"/></li>
+          <li data-bind="css: {current: index() == $root.currentIndex()}">
+            <img data-bind="attr: {src: imageSource}"/>
+          </li>
         </ul>
 
         <script data-main="js/main" src="bower_components/requirejs/require.js"></script>

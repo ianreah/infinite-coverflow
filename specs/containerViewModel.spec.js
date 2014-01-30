@@ -31,5 +31,9 @@
             expect(vmUnderTest.items()[7].index()).toBe(7);
             expect(vmUnderTest.items()[8].index()).toBe(8);
         });
+
+        it("initially marks the central item as current", function() {
+            expect(vmUnderTest.currentIndex()).toBe(4);
+        });
     });
 });

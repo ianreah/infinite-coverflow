@@ -8,5 +8,6 @@
         }
         
         this.items = ko.observableArray(itemsArray);
+        this.currentIndex = ko.observable(Math.floor(itemCount/2));
     };
 });
