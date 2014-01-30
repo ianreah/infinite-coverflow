@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "requirejs": "~2.1.9",
-    "knockout.js": "~3.0.0"
+    "knockout.js": "~3.0.0",
+    "requirejs-domready": "~2.0.1"
   }
 }

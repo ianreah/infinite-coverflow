@@ -1,6 +1,7 @@
 requirejs.config({
   paths: {
-    knockout: "../bower_components/knockout.js/knockout"
+    knockout: "../bower_components/knockout.js/knockout",
+    "requirejs-domready": "../bower_components/requirejs-domready/domReady"
   }
 });
  
