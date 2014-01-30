@@ -4,15 +4,10 @@ requirejs.config({
   }
 });
  
-require (['container'], function(containerCreator) {
-    var container = containerCreator.create();
-    
-    var containerElement = document.getElementById('container');
-    if(containerElement) {
-        containerElement.appendChild(container);
-    }
-    
-    document.onkeydown = function(event) {
+require (['knockout', 'containerViewModel', 'placeholderItemFactory'], function(ko, ContainerViewModel, ItemFactory) {
+    ko.applyBindings(new ContainerViewModel(new ItemFactory(100)));
+
+    /*document.onkeydown = function(event) {
         switch(event.keyCode)
         {
             case 39: // Right Arrow
@@ -23,5 +18,5 @@ require (['container'], function(containerCreator) {
                 container.movePrevious();
                 break;
         }
-    };
+    };*/
 });
