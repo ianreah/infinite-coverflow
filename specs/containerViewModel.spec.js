@@ -1,4 +1,4 @@
-﻿define(['containerViewModel'], function (ContainerViewModel) {
+define(['containerViewModel'], function (ContainerViewModel) {
     describe("Container View Model module", function () {
         var vmUnderTest;
 
@@ -34,6 +34,30 @@
 
         it("initially marks the central item as current", function() {
             expect(vmUnderTest.currentIndex()).toBe(4);
+        });
+        
+        it("isn't sliding yet", function() {
+           expect(vmUnderTest.slidingStatus()).toBeUndefined();
+        });
+        
+        describe("moveNext", function() {
+            it("slides the container to the left", function() {
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.slidingStatus()).toBe("slide-left");
+                
+                vmUnderTest.completeTransition();
+                expect(vmUnderTest.slidingStatus()).toBe("");
+           });
+        });
+        
+        describe("movePrevious", function() {
+            it("slides the container to the right", function() {
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.slidingStatus()).toBe("slide-right");
+                
+                vmUnderTest.completeTransition();
+                expect(vmUnderTest.slidingStatus()).toBe("");
+           });
         });
     });
 });
