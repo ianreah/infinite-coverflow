@@ -1,5 +1,6 @@
 define(['knockout'], function (ko) {
     var itemCount = 9;
+    var centralItem = Math.floor(itemCount/2);
     
     return function (itemFactory) {
         var itemsArray = [];
@@ -8,27 +9,41 @@ define(['knockout'], function (ko) {
         }
         
         this.items = ko.observableArray(itemsArray);
-        this.currentIndex = ko.observable(Math.floor(itemCount/2));
+        this.currentIndex = ko.observable(centralItem);
+        this.slidingStatus = ko.observable("");
         
-        var direction = ko.observable(0);
-        this.slidingStatus = ko.computed(function() {
-            if(direction() > 0) {
-                return "slide-left";
+        var me = this;
+        var direction = ko.computed(function(){
+            switch(me.slidingStatus()) {
+                case "slide-left":
+                    return 1;
+                    
+                case "slide-right":
+                    return -1;
+                    
+                default:
+                    return 0;
             }
-            
-            if(direction() < 0) {
-                return "slide-right";
-            }
-            
-            return "";
         });
 
         this.moveNext = function() {
-            direction(1);
+            if(direction() < 0) {
+                this.slidingStatus("slide-reset");
+                this.currentIndex(itemsArray[centralItem].index());
+            } else {
+                this.slidingStatus("slide-left");
+                this.currentIndex(itemsArray[centralItem+1].index());
+            }
         };
         
         this.movePrevious = function() {
-            direction(-1);
+            if(direction() > 0) {
+                this.slidingStatus("slide-reset");
+                this.currentIndex(itemsArray[centralItem].index());
+            } else {
+                this.slidingStatus("slide-right");
+                this.currentIndex(itemsArray[centralItem-1].index());
+            }
         };
         
         this.completeTransition = function(data, event) {
@@ -52,7 +67,7 @@ define(['knockout'], function (ko) {
                 itemsArray.unshift(itemFactory.getItem(newItemIndex));
             }
             
-            direction(0);
+            this.slidingStatus("");
             this.items.valueHasMutated();
         };
     };

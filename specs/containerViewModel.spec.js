@@ -82,6 +82,34 @@ define(['containerViewModel', 'knockout'], function (ContainerViewModel, ko) {
                 expect(vmUnderTest.items()[7].index()).toBe(8);
                 expect(vmUnderTest.items()[8].index()).toBe(9);
            });
+           
+           it("marks the next item as current", function(){
+                vmUnderTest.moveNext();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                expect(vmUnderTest.currentIndex()).toBe(5);
+           });
+           
+           it("followed by movePrevious before it finishes puts items back the way they were", function(){
+                vmUnderTest.moveNext();
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.slidingStatus()).toBe("slide-reset");
+                
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                expect(vmUnderTest.slidingStatus()).toBe("");
+                
+                expect(vmUnderTest.items()[0].index()).toBe(0);
+                expect(vmUnderTest.items()[1].index()).toBe(1);
+                expect(vmUnderTest.items()[2].index()).toBe(2);
+                expect(vmUnderTest.items()[3].index()).toBe(3);
+                expect(vmUnderTest.items()[4].index()).toBe(4);
+                expect(vmUnderTest.items()[5].index()).toBe(5);
+                expect(vmUnderTest.items()[6].index()).toBe(6);
+                expect(vmUnderTest.items()[7].index()).toBe(7);
+                expect(vmUnderTest.items()[8].index()).toBe(8);
+                
+                expect(vmUnderTest.currentIndex()).toBe(4);
+           });
         });
         
         describe("movePrevious", function() {
@@ -107,6 +135,34 @@ define(['containerViewModel', 'knockout'], function (ContainerViewModel, ko) {
                 expect(vmUnderTest.items()[7].index()).toBe(6);
                 expect(vmUnderTest.items()[8].index()).toBe(7);
             });
+           
+            it("marks the previous item as current", function(){
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                expect(vmUnderTest.currentIndex()).toBe(3);
+            });
+           
+           it("followed by moveNext before it finishes doesn't change the current item", function(){
+                vmUnderTest.movePrevious();
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.slidingStatus()).toBe("slide-reset");
+                
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                expect(vmUnderTest.slidingStatus()).toBe("");
+                
+                expect(vmUnderTest.items()[0].index()).toBe(0);
+                expect(vmUnderTest.items()[1].index()).toBe(1);
+                expect(vmUnderTest.items()[2].index()).toBe(2);
+                expect(vmUnderTest.items()[3].index()).toBe(3);
+                expect(vmUnderTest.items()[4].index()).toBe(4);
+                expect(vmUnderTest.items()[5].index()).toBe(5);
+                expect(vmUnderTest.items()[6].index()).toBe(6);
+                expect(vmUnderTest.items()[7].index()).toBe(7);
+                expect(vmUnderTest.items()[8].index()).toBe(8);
+                
+                expect(vmUnderTest.currentIndex()).toBe(4);
+           });
         });
     });
 });
