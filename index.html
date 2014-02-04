@@ -25,7 +25,9 @@
             data-bind="foreach: items,
                        css: slidingStatus,
                        event: {webkitTransitionEnd: completeTransition}">
-          <li data-bind="css: {current: index() == $root.currentIndex()}">
+          <li data-bind="css: {current: index() == $root.currentIndex(),
+                             'fade-in': fadingStatus() == 'fade-in',
+                            'fade-out': fadingStatus() == 'fade-out'}">
             <img data-bind="attr: {src: imageSource}"/>
           </li>
         </ul>

@@ -29,9 +29,17 @@ define(['knockout'], function (ko) {
         this.moveNext = function() {
             if(direction() < 0) {
                 this.slidingStatus("slide-reset");
+                
+                itemsArray[0].fadingStatus("fade-out");
+                itemsArray[itemCount-2].fadingStatus("fade-in");
+                
                 this.currentIndex(itemsArray[centralItem].index());
             } else {
                 this.slidingStatus("slide-left");
+                
+                itemsArray[itemCount-1].fadingStatus("fade-in");
+                itemsArray[1].fadingStatus("fade-out");
+                
                 this.currentIndex(itemsArray[centralItem+1].index());
             }
         };
@@ -39,9 +47,17 @@ define(['knockout'], function (ko) {
         this.movePrevious = function() {
             if(direction() > 0) {
                 this.slidingStatus("slide-reset");
+                
+                itemsArray[itemCount-1].fadingStatus("fade-out");
+                itemsArray[1].fadingStatus("fade-in");
+                
                 this.currentIndex(itemsArray[centralItem].index());
             } else {
                 this.slidingStatus("slide-right");
+                                
+                itemsArray[0].fadingStatus("fade-in");
+                itemsArray[itemCount-2].fadingStatus("fade-out");
+                
                 this.currentIndex(itemsArray[centralItem-1].index());
             }
         };
@@ -53,6 +69,10 @@ define(['knockout'], function (ko) {
             if(eventVm !== this) {
                 return;
             }
+            
+            itemsArray.forEach(function(x){
+                x.fadingStatus("");
+            });
             
             var newItemIndex;
             if(direction() > 0) {

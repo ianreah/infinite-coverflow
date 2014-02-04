@@ -6,6 +6,17 @@ define(['placeholderItem'], function(PlaceholderItem) {
             expect(new PlaceholderItem(41).index()).toBe(41);
         });
 
+        it("constructs items with blank fadingStatus", function() {
+            expect(new PlaceholderItem(0).fadingStatus()).toBe("");
+        });
+        
+        it("can set fadingStatus", function() {
+           var item = new PlaceholderItem(0) ;
+           item.fadingStatus("fade-in");
+           
+           expect(item.fadingStatus()).toBe("fade-in");
+        });
+        
         it("provides placehold.it image source urls labeled with the index (converted to 1-based)", function() {
             expect(new PlaceholderItem(0).imageSource()).toBe("http://placehold.it/100x100&text=1");
             expect(new PlaceholderItem(1).imageSource()).toBe("http://placehold.it/100x100&text=2");
