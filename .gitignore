@@ -3,4 +3,12 @@ bower_components/*
 bower_components/requirejs/*
 !bower_components/requirejs/require.js
 
+!bower_components/requirejs-domready
+bower_components/requirejs-domready/*
+!bower_components/requirejs-domready/domReady.js
+
+!bower_components/knockout.js
+bower_components/knockout.js/*
+!bower_components/knockout.js/knockout.js
+
 node_modules
