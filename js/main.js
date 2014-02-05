@@ -1,24 +1,23 @@
 requirejs.config({
-  paths: {}
+  paths: {
+    knockout: "../bower_components/knockout.js/knockout",
+    "requirejs-domready": "../bower_components/requirejs-domready/domReady"
+  }
 });
  
-require (['container'], function(containerCreator) {
-    var container = containerCreator.create();
-    
-    var containerElement = document.getElementById('container');
-    if(containerElement) {
-        containerElement.appendChild(container);
-    }
-    
-    document.onkeydown = function(event) {
+require(['knockout', 'containerViewModel', 'placeholderItemFactory', 'requirejs-domready!'], function (ko, ContainerViewModel, ItemFactory, dom) {
+    var vm = new ContainerViewModel(new ItemFactory(100));
+    ko.applyBindings(vm);
+
+    dom.onkeydown = function(event) {
         switch(event.keyCode)
         {
             case 39: // Right Arrow
-                container.moveNext();
+                vm.moveNext();
                 break;
             
             case 37: // Left Arrow
-                container.movePrevious();
+                vm.movePrevious();
                 break;
         }
     };

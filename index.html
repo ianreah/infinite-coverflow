@@ -21,7 +21,16 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="container"></div>
+        <ul id="albumList"
+            data-bind="foreach: items,
+                       css: slidingStatus,
+                       event: {webkitTransitionEnd: completeTransition}">
+          <li data-bind="css: {current: index() == $root.currentIndex(),
+                             'fade-in': fadingStatus() == 'fade-in',
+                            'fade-out': fadingStatus() == 'fade-out'}">
+            <img data-bind="attr: {src: imageSource}"/>
+          </li>
+        </ul>
 
         <script data-main="js/main" src="bower_components/requirejs/require.js"></script>
 
