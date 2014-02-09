@@ -24,6 +24,7 @@
         <ul id="albumList"
             data-bind="foreach: items,
                        css: slidingStatus,
+                       style: {webkitTransitionDuration: duration() + 's'},
                        event: {webkitTransitionEnd: completeTransition}">
           <li data-bind="css: {current: index() == $root.currentIndex(),
                              'fade-in': fadingStatus() == 'fade-in',

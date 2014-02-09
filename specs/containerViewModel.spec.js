@@ -260,5 +260,107 @@ define(['containerViewModel', 'knockout'], function (ContainerViewModel, ko) {
                 expect(secondLastItem.fadingStatus).toHaveBeenCalledWith("");
            });
         });
+        
+        describe("duration", function(){
+            it("is zero when not sliding", function(){
+               vmUnderTest.slidingStatus("");
+               expect(vmUnderTest.duration()).toBe(0);
+            });
+
+            it("is 0.5s when sliding right", function(){
+               vmUnderTest.slidingStatus("slide-right");
+               expect(vmUnderTest.duration()).toBe(0.5);
+            });
+            
+            it("is 0.5s when sliding left", function(){
+               vmUnderTest.slidingStatus("slide-left");
+               expect(vmUnderTest.duration()).toBe(0.5);
+            });
+            
+            it("is 0.5s when sliding back (slide-reset)", function(){
+               vmUnderTest.slidingStatus("slide-reset");
+               expect(vmUnderTest.duration()).toBe(0.5);
+            });
+
+            it("decreases when there are multiple moveNext in quick succession", function(){
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.duration()).toBe(0.5);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.duration()).toBe(0.3);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.duration()).toBe(0.18);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.duration()).toBe(0.108);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+
+                vmUnderTest.moveNext();
+                expect(vmUnderTest.duration()).toBe(0.0648);
+            });          
+
+            it("decreases when there are multiple movePrevious in quick succession", function(){
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.5);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.3);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.18);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.108);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.0648);
+            });
+            
+            it("stops decreasing when it reaches a minimum", function(){
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.02);
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                
+                vmUnderTest.movePrevious();
+                expect(vmUnderTest.duration()).toBe(0.02);
+            });
+            
+            it("resets to the initial duration after a timeout", function(){
+                jasmine.Clock.useMock();
+                
+                vmUnderTest.movePrevious();
+                vmUnderTest.completeTransition(vmUnderTest, {target: document.getElementById("testContainer")});
+                vmUnderTest.movePrevious();
+
+                expect(vmUnderTest.duration()).toBe(0.3);
+                
+                jasmine.Clock.tick(500);
+                
+                expect(vmUnderTest.duration()).toBe(0.5);
+            });
+        });
     });
 });

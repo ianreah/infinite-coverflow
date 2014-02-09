@@ -129,17 +129,17 @@ body {
 }
 
 .slide-left {
-    -webkit-transition: -webkit-transform 0.5s;
+    -webkit-transition-property: -webkit-transform;
     -webkit-transform: translateX(-100px);
 }
 
 .slide-right {
-    -webkit-transition: -webkit-transform 0.5s;
+    -webkit-transition-property: -webkit-transform;
     -webkit-transform: translateX(100px);
 }
 
 .slide-reset {
-    -webkit-transition: -webkit-transform 0.5s;
+    -webkit-transition-property: -webkit-transform;
     -webkit-transform: translateX(0px);
 }
 
