@@ -25,6 +25,19 @@ define(['knockout'], function (ko) {
                     return 0;
             }
         });
+        
+        var initialDuration = 0.5;
+        var acceleration = 0.6;
+        var minimumDuration = 0.02;
+        var currentDuration = ko.observable(initialDuration);
+        
+        this.duration = ko.computed(function(){
+            if(me.slidingStatus() === "") {
+                return 0;
+            }
+            
+            return currentDuration();
+        });
 
         this.moveNext = function() {
             if(direction() < 0) {
@@ -62,6 +75,7 @@ define(['knockout'], function (ko) {
             }
         };
         
+        var accelerationTimeoutId;
         this.completeTransition = function(data, event) {
             // Ignore events bubbling from the child elements
             // (Assumes child elements are bound to a different vm)
@@ -89,6 +103,12 @@ define(['knockout'], function (ko) {
             
             this.slidingStatus("");
             this.items.valueHasMutated();
+            
+            currentDuration(Math.max(currentDuration() * acceleration, minimumDuration));
+            clearTimeout(accelerationTimeoutId);
+            accelerationTimeoutId = setTimeout(function() {
+                currentDuration(initialDuration);
+            }, 500);
         };
     };
 });
